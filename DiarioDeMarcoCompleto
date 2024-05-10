@@ -1,0 +1,66 @@
+class DiarioDeMarcoCompleto {
+    public static void main(String[] args) {
+
+        double distanciaInicio = 350;
+        double avanceMadre = Math.random() * 6 + 3;
+
+        int dias = 0;
+        double distanciaRestante = distanciaInicio;
+        boolean viaje = 0 < distanciaRestante;
+
+        while (viaje) {
+            dias++;
+            double velocidadMarco = Math.random() * 10 + 5;
+            double tiempoTrayectoMarco = Math.random() * 8 + 2;
+            double tiempoPerdido = 0;
+            double probabilidades = Math.random();
+
+            double amedioCansado = 0.25;
+            double amedioEscapado = 0.15;
+
+            double carruajeLluviaNormal = 1;
+            double carruajeLluviaFuerte = 1;
+
+            String notasDiarias = "Buen clima ";
+            double lluviaFuerte = 0.1;
+            double lluviaNormal = 0.3;
+            double reduccionVelocidad = 1;
+
+            double avanceMarco = velocidadMarco * tiempoTrayectoMarco;
+
+            if (probabilidades <= lluviaFuerte) {
+                reduccionVelocidad = 0.25;
+                carruajeLluviaFuerte = 0.5;
+                notasDiarias = "Hubo lluvia fuerte ";
+            } else if (probabilidades <= lluviaNormal) {
+                reduccionVelocidad = 0.25;
+                carruajeLluviaNormal = 0.25;
+                notasDiarias = "Hubo lluvia normal ";
+            }
+
+            if (probabilidades <= amedioCansado) {
+                notasDiarias = notasDiarias + "Amedio se cansó ";
+            }
+            if (probabilidades <= amedioEscapado) {
+                notasDiarias = notasDiarias + "Amedio se escapó";
+            }
+
+            avanceMadre *= (carruajeLluviaFuerte + carruajeLluviaNormal);
+            distanciaRestante -= avanceMarco + avanceMadre;
+
+            if (distanciaRestante < 50 && Math.random() <= 0.5) {
+                notasDiarias += "Alguien le dijo a Marco que vio a su madre. ";
+                avanceMarco += 25;
+            }
+
+            System.out.println("DÍA: " + dias);
+            System.out.println("Notas del viaje: " + notasDiarias);
+            System.out.println("Hoy Marco avanzó: " + Math.round(avanceMarco) + "km");
+            System.out.println("Hoy la Madre avanzó: " + Math.round(avanceMadre) + "km");
+            System.out.println("*".repeat(30));
+
+            viaje = distanciaRestante > 0;
+        }
+        System.out.println("Después de " + dias + " días, tras muchas peripecias, Marco se reencuentra con su Madre");
+    }
+}
